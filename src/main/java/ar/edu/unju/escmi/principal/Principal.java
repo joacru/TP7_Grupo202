@@ -14,6 +14,10 @@ public class Principal {
 	static List<Materia> materias = new ArrayList<>();
 	
 	public static void main(String[] args) {
+		inicializarDatos();
+		while(true) {
+			menu();
+		}
 	}
 	
 	public static void menu() {
@@ -26,6 +30,7 @@ public class Principal {
 		System.out.println("4. Mostrar lista de alumnos con sus respectivas notas");
 		System.out.println("5. Mostrar lista de materias de un curso");
 		System.out.println("6. Salir");
+		System.out.print("Opción: ");
 		op = sc.nextInt();
 		switch(op) {
 		case 1: {
@@ -55,7 +60,11 @@ public class Principal {
 			}
 			System.out.print("Ingrese el número de curso correspondiente: ");
 			curso = sc.nextInt();
-			alumnos.put(dni, new Alumno(nombre, apellido, dni, fechaNacimiento, curso));
+			if(anadirAlumno(new Alumno(nombre, apellido, dni, fechaNacimiento, curso))) {
+				System.out.println("El alumno ha sido agregado con éxito.");
+			} else {
+				System.out.println("Ya existe un alumno con el mismo DNI.");
+			}
 			break;
 		}
 		case 2: {
@@ -74,7 +83,7 @@ public class Principal {
 				index++;
 			}
 			System.out.print("Ingrese el número de materia correspondiente: ");
-			materiaIndex = sc.nextInt();
+			materiaIndex = sc.nextInt() - 1;
 			Materia materia = materias.get(materiaIndex);
 			System.out.print("Ingrese la nota: ");
 			valorNota = sc.nextInt();
@@ -109,7 +118,7 @@ public class Principal {
 				for(Nota nota : entry.getValue().getNotas()) {
 					System.out.println(nota);
 				}
-				System.out.println();
+				System.out.println("----------");
 			}
 			break;
 		case 5:
@@ -120,6 +129,7 @@ public class Principal {
 				System.out.println("" + index + ". " + c);
 				index++;
 			}
+			System.out.print("Ingrese el número de curso correspondiente: ");
 			curso = sc.nextInt();
 			for(Materia materia : materias) {
 				if(materia.getCurso() != curso) continue;
@@ -132,7 +142,6 @@ public class Principal {
 			System.out.println("La opción ingresada no es válida.");
 			break;
 		}
-		sc.close();
 	}
 	
 	private static Alumno buscarAlumno(Long dni) {
@@ -144,15 +153,56 @@ public class Principal {
 		}
 	}
 	
-	private static void anadirAlumno(Alumno alumno) {
-		alumnos.put(alumno.getDni(), alumno);
+	private static boolean anadirAlumno(Alumno alumno) {
+		if(alumnos.get(alumno.getDni()) == null) {
+			alumnos.put(alumno.getDni(), alumno);
+			return true;
+		}
+		return false;
 	}
 	
 	private static void inicializarDatos() {
-		anadirAlumno(new Alumno("Joaquín", "Cruz", 12345678, LocalDate.of(2002, 05, 15), 5));
-		anadirAlumno(new Alumno("Tomás", "Cruz", 23146568, LocalDate.of(2002, 05, 15), 5));
+		anadirAlumno(new Alumno("Joaquín", "Cruz", 12345678, LocalDate.of(2001, 05, 15), 5));
+		anadirAlumno(new Alumno("Tomás", "Cruz", 23146568, LocalDate.of(2001, 05, 15), 5));
 		anadirAlumno(new Alumno("Atilio", "Grafión", 87654321, LocalDate.of(2002, 05, 15), 5));
 		anadirAlumno(new Alumno("Nicolás", "Oviedo", 78541354, LocalDate.of(2002, 05, 15), 5));
+		materias.add(new Materia(1001, "Programación Orientada a Objetos", Materia.CUATRI, Materia.TERCERO));
+		materias.add(new Materia(1002, "Programación Visual", Materia.CUATRI, Materia.TERCERO));
+		materias.add(new Materia(1003, "Estructuras de datos", Materia.ANUAL, Materia.SEGUNDO));
+		Long k;
+		Alumno alumno;
+		k = (long) 12345678;
+		alumno = alumnos.get(k);
+		alumno.anadirNota(new Nota(9, materias.get(0)));
+		alumno.anadirNota(new Nota(8, materias.get(0)));
+		alumno.anadirNota(new Nota(9, materias.get(0)));
+		alumno.anadirNota(new Nota(7, materias.get(1)));
+		alumno.anadirNota(new Nota(8, materias.get(1)));
+		alumno.anadirNota(new Nota(7, materias.get(2)));
+		k = (long) 23146568;
+		alumno = alumnos.get(k);
+		alumno.anadirNota(new Nota(9, materias.get(0)));
+		alumno.anadirNota(new Nota(8, materias.get(1)));
+		alumno.anadirNota(new Nota(9, materias.get(1)));
+		alumno.anadirNota(new Nota(7, materias.get(2)));
+		alumno.anadirNota(new Nota(8, materias.get(2)));
+		alumno.anadirNota(new Nota(7, materias.get(2)));
+		k = (long) 87654321;
+		alumno = alumnos.get(k);
+		alumno.anadirNota(new Nota(9, materias.get(0)));
+		alumno.anadirNota(new Nota(8, materias.get(0)));
+		alumno.anadirNota(new Nota(9, materias.get(1)));
+		alumno.anadirNota(new Nota(7, materias.get(2)));
+		alumno.anadirNota(new Nota(8, materias.get(2)));
+		alumno.anadirNota(new Nota(7, materias.get(2)));
+		k = (long) 78541354;
+		alumno = alumnos.get(k);
+		alumno.anadirNota(new Nota(9, materias.get(0)));
+		alumno.anadirNota(new Nota(8, materias.get(1)));
+		alumno.anadirNota(new Nota(9, materias.get(1)));
+		alumno.anadirNota(new Nota(7, materias.get(1)));
+		alumno.anadirNota(new Nota(8, materias.get(2)));
+		alumno.anadirNota(new Nota(7, materias.get(2)));
 	}
 
 }

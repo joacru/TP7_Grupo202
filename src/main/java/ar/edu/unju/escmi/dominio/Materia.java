@@ -1,7 +1,7 @@
 package ar.edu.unju.escmi.dominio;
 
 public class Materia {
-	public static final int CUATRIMESTRAL = 1, ANUAL = 2;
+	public static final int CUATRI = 1, ANUAL = 2;
 	public static final int PRIMERO = 1, SEGUNDO = 2, TERCERO = 3, CUARTO = 4, QUINTO = 5;
 	private int codigo;
 	private String nombre;
@@ -22,7 +22,7 @@ public class Materia {
 	public String obtenerTipo() {
 		String ret = "";
 		switch(tipo) {
-		case CUATRIMESTRAL:
+		case CUATRI:
 			ret = "Cuatrimestral";
 			break;
 		case ANUAL:

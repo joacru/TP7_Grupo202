@@ -14,6 +14,13 @@ public class Nota {
 	public Nota() {
 		orden = ++cnt;
 	}
+	
+	public Nota(int nota, Materia materia) {
+		super();
+		this.nota = nota;
+		this.fechaNota = LocalDate.now();
+		this.materia = materia;
+	}
 
 	public Nota(int nota, LocalDate fechaNota, Materia materia) {
 		super();
@@ -62,7 +69,7 @@ public class Nota {
 	public String toString() {
 		String ret = "Materia: " + materia.getNombre() + "\n";
 		ret += "Nota: " + nota + "\n";
-		ret += "Fecha: " + formatter.format(fechaNota) + "\n";
+		ret += "Fecha: " + formatter.format(fechaNota);
 		return ret;
 	}
 	

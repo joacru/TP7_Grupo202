@@ -17,7 +17,7 @@ public class Alumno {
 	}
 
 	public Alumno(String nombre, String apellido, long dni, LocalDate fechaNacimiento, int curso) {
-		super();
+		this();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;

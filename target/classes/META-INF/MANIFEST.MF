@@ -2,4 +2,5 @@ Manifest-Version: 1.0
 Built-By: Familia
 Build-Jdk: 1.8.0_261
 Created-By: Maven Integration for Eclipse
+Main-Class: ar.edu.unju.escmi.principal.Principal
 
